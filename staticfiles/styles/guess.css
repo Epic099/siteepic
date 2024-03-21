@@ -1,0 +1,51 @@
+.roombar {
+    text-align: center;
+}
+.input-container {
+    width: 100%;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.digit-input {
+    border: 1px solid #ccc;
+    border-radius: 7px;
+    width: 20%; /* Adjust width as needed */
+    height: 50px;
+    font-size: 30px; /* Adjust font size as needed */
+    text-align: center; /* Centers the digits within the field */
+    letter-spacing: 10px; /* Creates space between digits */
+    top: 50%;
+}
+.btn-ok {
+    background-color: rgb(0, 255, 0);
+    position: relative;
+    top: 50%;
+    height: 50px;
+    width: 5%;
+    border: 1px solid;
+    border-radius: 7px;
+}
+
+.guesshistory ul {
+    text-align: center;
+    list-style: none;
+}
+.hcontainer {
+    width: 70%;
+    margin: 0 auto; /* Center the container horizontally */
+    display: flex; /* Use flexbox for side-by-side layout */
+    justify-content: space-between;
+  }
+  .hcontainer ul {
+    list-style: none;
+    text-indent: -1.5em
+  }
+  
+  .left-column,
+  .right-column {
+    width: 30%;
+    padding: 10px;
+    border: 1px solid #ddd; /* Optional border for visual distinction */
+    text-align: center;
+  }

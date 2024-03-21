@@ -1,0 +1,49 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block dependencies %}
+<link rel="stylesheet" href="{% static 'styles/games.css' %}">
+{% endblock dependencies %}
+
+{% block content %}
+<div class="container2">
+    <h1>
+         <a href="#menu">Spiele</a>
+    </h1>
+     <div class="popover" id="menu">
+      <div class = 'content'>
+       <a href="#" class="close"></a>
+        <div class = 'nav'>
+         <ul class = 'nav_list'>
+      <!--
+           <div class = 'nav_list_item'>
+           <li class="disabled_item"><a class="disabled_link" href="">Minesweeper</a></li>
+           </div>
+          <div class = 'nav_list_item'>
+             <li class="disabled_item"><a class="disabled_link" href="">Flappy Bird</a></li>
+           </div>
+         <div class = 'nav_list_item'>
+           <li class="disabled_item"><a class="disabled_link" href="">Pong</a></li>
+           </div>
+           <div class = 'nav_list_item'>
+            <li><a href="snake">Snake</a></li>
+           </div>
+           <div class = 'nav_list_item'>
+            <li class="disabled_item"><a class="disabled_link" href="">Tetris</a></li>
+            </div>-->     
+            <div class = 'nav_list_item'>
+              <li><a href="games/numguess">Number Guess (W.I.P)</a></li>
+              </div>
+            <div class = 'nav_list_item'>
+              <li><a href="chess">Schach (W.I.P)</a></li>
+              </div>
+         </ul>
+       </div>
+      </div>
+     </div>
+  </div>
+{% endblock content %}
+
+
+{% block scripts %}
+{% endblock scripts %}

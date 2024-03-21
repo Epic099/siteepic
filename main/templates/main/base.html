@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {% load static %}
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+          crossorigin="anonymous"
+        />
+        {% block dependencies %} {% endblock %}
+        <!--
+        <script src="{% static 'tinymce/tinymce.min.js' %}"></script>
+        <script src="{% static 'tinymce-config.js' %}"></script>
+        <script src="{% static 'wirisplugin.js' %}"></script> -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS_HTML"></script>
+        <title>{% block title %}My Games{% endblock %}</title>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-sm navbar-light bg-light">
+            <a href="/home" class="navbar-brand mb-0 h1">
+                &nbsp;<img class="d-line-block" src="{% static '/images/icon.png' %}" alt="test" width="30" height="30">
+            </a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ">
+                    <li class="nav-item active">
+                        <a href="/home" class="nav-link">
+                            Home
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a href="/games" class="nav-link">
+                            Spiele
+                        </a>
+                    </li>
+                    {% if user.is_superuser %}
+                    <li class="nav-item active">
+                      <a href="/admin" class="nav-link">
+                          Admin
+                      </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+            <div>
+                <ul class="navbar-nav">
+                  {% if user.is_authenticated %}
+                    <span class="navbar-text">Logged in as {{user.username}}</span>
+                  {% if user.is_superuser %}
+                    <span class="navbar-text" style="color: red">&nbsp;(ADMIN)</span>
+                  {% endif %}
+                  <span class="navbar-text">&nbsp;|&nbsp;</span>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
+                  </li>
+                  {% else %}
+                  <li class="nav-item">
+                    <a class="nav-link" href="/login">Login</a>
+                  </li>
+                  {% endif %}
+                </ul>
+              </div>
+        </nav>
+        <div class="container">
+            {% block content %}{% endblock %}
+        </div>
+    </body>
+    {% block scripts %}{% endblock %}
+</html>

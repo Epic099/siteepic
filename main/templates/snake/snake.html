@@ -1,0 +1,15 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block dependencies %}
+<link rel="stylesheet" href="{% static 'styles/snake.css' %}">
+{% endblock dependencies %}
+{% block content %}
+<br><br><h1>Snake</h1>
+  <canvas width="802" height="602"></canvas>
+</body>
+{% endblock content %}
+
+{% block scripts %}
+<script src="{% static 'js/snake.js' %}"></script>
+{% endblock scripts %}

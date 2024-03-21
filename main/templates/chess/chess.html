@@ -1,0 +1,34 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block dependencies %}
+<!--<link rel="stylesheet" href="{% static 'styles/chess.css' %}">-->
+{% endblock dependencies %}
+
+{% block content %}
+<canvas width="635" height="595" style="position: relative; margin-left: 50%; transform: translateX(-50%);border: 1px solid black;" id="gameCanvas">
+</canvas>
+<div id="my-element" data-name="{{ room }}"></div>
+<div id="boardfen" data-name="{{BoardFEN}}"></div>
+<div id="moves" data-name="{{Moves}}"></div>
+<div id="color" data-name="{{Color}}"></div>
+{% endblock content %}
+
+
+{% block scripts %}
+<script>
+    const BlackQueenUrl = "{% static 'images/pieces/bqueen.png' %}"
+    const BlackBishopUrl = "{% static 'images/pieces/bbishop.png' %}"
+    const BlackKnightUrl = "{% static 'images/pieces/bknight.png' %}"
+    const BlackKingUrl = "{% static 'images/pieces/bking.png' %}"
+    const BlackRookUrl = "{% static 'images/pieces/brook.png' %}"
+    const BlackPawnUrl = "{% static 'images/pieces/bpawn.png' %}"
+    const WhiteKingUrl = "{% static 'images/pieces/wking.png' %}"
+    const WhiteQueenUrl = "{% static 'images/pieces/wqueen.png' %}"
+    const WhiteBishopUrl = "{% static 'images/pieces/wbishop.png' %}"
+    const WhiteKnightUrl = "{% static 'images/pieces/wknight.png' %}"
+    const WhiteRookUrl = "{% static 'images/pieces/wrook.png' %}"
+    const WhitePawnUrl = "{% static 'images/pieces/wpawn.png' %}"
+</script>
+<script src="{% static 'js/chess.js' %}"></script>
+{% endblock scripts %}

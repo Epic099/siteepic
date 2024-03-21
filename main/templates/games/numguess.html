@@ -1,0 +1,46 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block dependencies %}
+<link rel="stylesheet" href="{% static 'styles/guess.css' %}">
+{% endblock dependencies %}
+{% block content %}
+<div class="roombar">
+  <div class="room">
+    <button id="createR" onclick="createRoom()">Create Room</button>
+    <button id="joinR" onclick="joinRoom()">Join Room</button>
+    <input id="roomid" class="roomid" placeholder="Room Id">
+    <span id="roomDisplay" style="display: none"></span>
+  </div>
+</div>
+<br><br><h1 id="header" style="width: 100%; text-align: center">Number-Guess</h1>
+<h4 id="win1" style="width: 100%; display: none; text-align: center">Player 1 | 000</h1>
+<h4 id="win2" style="width: 100%; display: none; text-align: center">Player 2 | 000</h1>
+<div id="number" style="display: none" class="input-container">
+  <input id="numfield" type="text" class="digit-input" maxlength="3" pattern="[0-9]{4}">
+  <button id="numok" onclick="setNumber()" class="btn-ok">Ok</button>
+</div>
+<br>
+<div style="display: none" id="guesscontainer" class="input-container">
+  <input placeholder="Raten..." id="guessfield" type="text"  class="digit-input" maxlength="3" pattern="[0-9]{4}">
+  <button id="guessok" onclick="guess()" class="btn-ok">Ok</button>
+</div>
+<br>
+<div style="display: none" id="guesshistory" class="hcontainer">
+  <div class="left-column">
+    <h4 id="player1_name">Player 1</h4>
+    <ul id="player1_history">
+    </ul>
+  </div>
+  <div class="right-column">
+    <h4 id="player2_name">Player 2</h4>
+    <ul id="player2_history">
+    </ul>
+  </div>
+</div>
+</body>
+{% endblock content %}
+
+{% block scripts %}
+<script src="{% static 'js/guess.js' %}"></script>
+{% endblock scripts %}
