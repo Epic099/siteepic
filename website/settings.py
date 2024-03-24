@@ -25,8 +25,7 @@ SECRET_KEY = 'django-insecure-*y_t+q12f6kj8%@f(u-gri_s3g8!jep%k5&%hc@0w(1kx#o$qx
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ["sitegames.glitch.me"]
 
 # Application definition
 

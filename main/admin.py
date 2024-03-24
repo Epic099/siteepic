@@ -1,7 +1,6 @@
 from django.contrib import admin
-from .models import ChessRoom, GuessRoom
+from .models import GuessRoom
 # Register your models here.
 
 
-admin.site.register(ChessRoom)
 admin.site.register(GuessRoom)

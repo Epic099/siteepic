@@ -1,5 +1,5 @@
 let roomId = 0;
-let url = 'ws://' + window.location.host + '/ws/guess/';
+let url = 'wss://' + window.location.host + '/ws/guess/';
 
 const GUESSDIGITS = 3;
 
@@ -12,6 +12,7 @@ function displayRoom() {
     let disp = document.getElementById("roomDisplay");
     disp.style.display = "";
     disp.innerHTML = "Room ID: " + roomId;
+    document.getElementById("roomcopy").style.display = "";
     document.getElementById("number").style.display = "";
     document.getElementById("numok").style.display = "";
 }
@@ -42,6 +43,19 @@ function joinRoom() {
         "type":"join", "id" : id
     }
     socket.send(JSON.stringify(data));
+}
+
+function copyToClipboard(text) {
+  const textarea = document.createElement('textarea');
+  textarea.value = text;
+  document.body.appendChild(textarea);
+  textarea.select();
+  document.execCommand('copy');
+  document.body.removeChild(textarea);
+}
+
+function copy() {
+  copyToClipboard(roomId);
 }
 
 function setNumber() {
@@ -96,6 +110,7 @@ socket.onmessage = function(e) {
         document.getElementById("roomid").style.display = "";
         document.getElementById("createR").style.display = "";
         document.getElementById("joinR").style.display = "";
+        document.getElementById("roomcopy").style.display = "none";
         let disp = document.getElementById("roomDisplay");
         disp.style.display = "none";
         disp.innerHTML = "Room ID: " + roomId;
@@ -150,6 +165,7 @@ socket.onmessage = function(e) {
             document.getElementById("number").style.display = "none";
             document.getElementById("numok").style.display = "none";
             document.getElementById("guesscontainer").style.display = "none";
+            document.getElementById("roomcopy").style.display = "none";
             document.getElementById("guesshistory").style.display = "none";
             document.getElementById("number").style.display = "none";
             document.getElementById("guessfield").value = "";

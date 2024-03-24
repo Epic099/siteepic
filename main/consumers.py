@@ -2,8 +2,6 @@ import json
 from channels.generic.websocket import WebsocketConsumer
 from asgiref.sync import async_to_sync
 from . import guess
-from . import chess as ChessAPI
-from . import classes as ChessAPIConfig
 from . import models
 
 GUESSDIGITS = 3
@@ -14,91 +12,7 @@ def guessUser(id, user):
         return 1
     elif room.player2 == user:
         return 2
-    return False
-
-class ChessConsumer(WebsocketConsumer):
-    def connect(self):
-      self.room_name = self.scope['url_route']['kwargs']['room']
-      self.room_group_name = f'chess_{self.room_name}'
-      async_to_sync(self.channel_layer.group_add)(
-          self.room_group_name,
-          self.channel_name
-      )
-      self.accept()
-      
-      self.send(text_data=json.dumps({
-        'type' : "debug",
-        'message' : 'Connection to Server established'
-      }))
-    
-    def receive(self, text_data):
-        text_data_json = json.loads(text_data)
-        startSquare = text_data_json["startSquare"]
-        targetSquare = text_data_json["targetSquare"]
-        split = self.room_group_name.split("_")
-        room_name  = split[1]
-        room = models.ChessRoom.objects.get(name=room_name)
-        Board = ChessAPI.Board()
-        Board.loadFEN(room.Board)
-        color = ChessAPIConfig.Color.White if room.Color == False else ChessAPIConfig.Color.Black
-        if Board.ColorToMove != color:
-            Board.changeColor()
-        legalMoves = Board.calcMoves(color, True)
-        colorToPlay = Board.ColorToMove
-        user = self.scope["user"]
-        if colorToPlay == ChessAPIConfig.Color.White and room.white != user or colorToPlay == ChessAPIConfig.Color.Black and room.black != user:
-            return
-        Move = ChessAPIConfig.Move(startSquare, targetSquare, Board.getSquarePiece(startSquare), Board.getSquarePiece(targetSquare), color)
-        if not Move.isLegal(legalMoves):
-
-            print("Move illegal")
-            return        
-        Board.makeMove(Move, nextPlayer=False)
-        Board.changeColor()
-        
-        fen = Board.saveFEN()
-        room.Board = fen
-        color = 1 if Board.ColorToMove == ChessAPIConfig.Color.White else 2
-        room_color = False if color == 1 else True
-        room.Color = room_color
-        new_moves = Board.calcMoves(Board.ColorToMove, False, True)
-        if len(new_moves) == 0:
-            Board.loadFEN()
-            Board.ColorToMove = ChessAPIConfig.Color.White
-            new_moves = Board.calcMoves(Board.ColorToMove, False, True)
-            fen = Board.saveFEN()
-            room.Board = fen
-            room.Color = False
-        new_moves = json.dumps(new_moves)
-        room.Moves = new_moves
-        room.save()
-        async_to_sync(self.channel_layer.group_send)(
-            self.room_group_name,
-            {
-                'type':'play_move',
-                'color':color,
-                'board':fen,
-                'new_moves' : new_moves
-                
-            }
-        )
-
-    def play_move(self, event):
-        color = event["color"]
-        board = event["board"]
-        new_moves = event["new_moves"]
-        #value = event["value"]
-        self.send(text_data=json.dumps({
-            'type':'play_move',
-            'color':color,
-            'board':board,
-            'new_moves' : new_moves
-        }))
-      
-    def disconnect(self, close_code):
-      print(f'Connection closed: {close_code}')
-      async_to_sync(self.channel_layer.group_discard)(self.room_name, self.channel_name)
-      
+    return False 
       
 class GuessConsumer(WebsocketConsumer):
     def connect(self):
